@@ -52,8 +52,8 @@ const bool apMode = false;
 const char WiFiAPPSK[] = "";
 
 // Wi-Fi network to connect to (if not in AP mode)
-const char* ssid = "";
-const char* password = "";
+const char* ssid = "MikroTik";
+const char* password = ".........";
 
 ESP8266WebServer webServer(80);
 WebSocketsServer webSocketsServer = WebSocketsServer(81);
@@ -62,13 +62,11 @@ ESP8266HTTPUpdateServer httpUpdateServer;
 #include "FSBrowser.h"
 
 #define DATA_PIN      D7
-#define LED_TYPE      WS2811
-// #define LED_TYPE      WS2812 //for WS2812 strips
-#define COLOR_ORDER   RGB
-// #define COLOR_ORDER   GRB //for WS2812 strips
+#define LED_TYPE      WS2812
+#define COLOR_ORDER   GRB
 #define NUM_LEDS      300
 
-#define MILLI_AMPS         4000     // IMPORTANT: set the max milli-Amps of your power supply (4A = 4000mA)
+#define MILLI_AMPS         15000     // IMPORTANT: set the max milli-Amps of your power supply (4A = 4000mA)
 #define FRAMES_PER_SECOND  240 // here you can control the speed. With the Access Point / Web Server the animations run a bit slower.
 
 #include "Map.h"
@@ -222,8 +220,8 @@ PatternAndNameList patterns = {
   { sinelon,                "Sinelon" },
   { bpm,                    "Beat" },
   { juggle,                 "Juggle" },
-  { fire,                   "Fire" },
-  { water,                  "Water" },
+  //{ fire,                   "Fire" },
+  //{ water,                  "Water" },
 
   //  { draw,                   "Draw" },
   { showSolidColor,         "Solid Color" }
@@ -1311,7 +1309,7 @@ void heatMap(CRGBPalette16 palette, bool up)
   random16_add_entropy(random(256));
 
   // Array of temperature readings at each simulation cell
-  static byte heat[256];
+  static uint16_t heat[256];
 
   byte colorindex;
 
@@ -1361,7 +1359,7 @@ void addGlitter( uint8_t chanceOfGlitter)
 // a count of how many there are.  The actual color palette definitions
 // are at the bottom of this file.
 extern const TProgmemRGBGradientPalettePtr gGradientPalettes[];
-extern const uint8_t gGradientPaletteCount;
+extern const uint16_t gGradientPaletteCount;
 
 uint8_t beatsaw8( accum88 beats_per_minute, uint8_t lowest = 0, uint8_t highest = 255,
                   uint32_t timebase = 0, uint8_t phase_offset = 0)
@@ -1500,7 +1498,7 @@ void paletteWaves() {
   fadeToBlackBy( leds, NUM_LEDS, 20);
 
   for (uint8_t levelIndex = 0; levelIndex < levelCount; levelIndex++) {
-    for (uint8_t i = levelStart[levelIndex]; i < levelEnd[levelIndex]; i++) {
+    for (uint16_t i = levelStart[levelIndex]; i < levelEnd[levelIndex]; i++) {
       leds[i] = ColorFromPalette(gCurrentPalette, gHue + levelIndex, beatsin8(speed + levelIndex));
     }
   }

@@ -61,7 +61,7 @@ void SetupBlackAndBlueStripedPalette()
   // 'black out' all 16 palette entries...
   fill_solid( blackAndBlueStripedPalette, 16, CRGB::Black);
 
-  for(uint8_t i = 0; i < 6; i++) {
+  for(uint16_t i = 0; i < 6; i++) {
     blackAndBlueStripedPalette[i] = CRGB::Blue;
   }
 }
@@ -77,15 +77,15 @@ void SetupBlackAndBlueStripedPalette()
 void drawNoise(CRGBPalette16 palette)
 {
   for (uint16_t i = 0; i < NUM_LEDS; i++) {
-    uint8_t x = xCoords[i];
-    uint8_t y = yCoords[i];
-    uint8_t z = zCoords[i];
+    uint16_t x = xCoords[i];
+    uint16_t y = yCoords[i];
+    uint16_t z = zCoords[i];
 
     int xoffset = noisescale * x;
     int yoffset = noisescale * y;
     int zoffset = noisescale * z;
 
-    uint8_t data = inoise8(x + xoffset + noisex, y + yoffset + noisey, z + zoffset + noisez);
+    uint16_t data = inoise8(x + xoffset + noisex, y + yoffset + noisey, z + zoffset + noisez);
 
     // The range of the inoise8 function is roughly 16-238.
     // These two operations expand those values out to roughly 0..255

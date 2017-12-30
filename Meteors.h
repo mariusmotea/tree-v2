@@ -1,15 +1,15 @@
 struct Meteor {
-  uint8_t angle = random8();
-  uint8_t level = random8(levelCount);
+  uint16_t angle = random8();
+  uint16_t level = random8(levelCount);
 };
 
-const uint8_t meteorCount = 1;
+const uint16_t meteorCount = 1;
 Meteor meteors[meteorCount];
 
-uint8_t getMeteorLedIndexAndUpdate(uint8_t meteorIndex) {
+uint16_t getMeteorLedIndexAndUpdate(uint16_t meteorIndex) {
   Meteor meteor = meteors[meteorIndex];
 
-  uint8_t i = getNearestToAngleAndLevel(meteor.angle, meteor.level);
+  uint16_t i = getNearestToAngleAndLevel(meteor.angle, meteor.level);
 
   EVERY_N_MILLISECONDS(60) {
     meteor.level--;
@@ -38,7 +38,7 @@ void whiteMeteors() {
   dimAll(220);
 
   EVERY_N_MILLISECONDS(30) {
-    for (uint8_t meteorIndex = 0; meteorIndex < meteorCount; meteorIndex++) {
+    for (uint16_t meteorIndex = 0; meteorIndex < meteorCount; meteorIndex++) {
       uint16_t i = getMeteorLedIndexAndUpdate(meteorIndex);
 
       if(i < NUM_LEDS) {
@@ -51,7 +51,7 @@ void whiteMeteors() {
 void paletteMeteors() {
   dimAll(220);
 
-  for (uint8_t meteorIndex = 0; meteorIndex < meteorCount; meteorIndex++) {
+  for (uint16_t meteorIndex = 0; meteorIndex < meteorCount; meteorIndex++) {
     uint16_t i = getMeteorLedIndexAndUpdate(meteorIndex);
 
     if(i < NUM_LEDS) {
@@ -63,7 +63,7 @@ void paletteMeteors() {
 void rainbowMeteors() {
   dimAll(220);
 
-  for (uint8_t meteorIndex = 0; meteorIndex < meteorCount; meteorIndex++) {
+  for (uint16_t meteorIndex = 0; meteorIndex < meteorCount; meteorIndex++) {
     uint16_t i = getMeteorLedIndexAndUpdate(meteorIndex);
 
     if(i < NUM_LEDS) {
